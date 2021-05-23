@@ -21,10 +21,11 @@ def GeneralNum(Datas):
         se = GetMonth(ss)
         if se not in d:
             d[se] = 1
-            if sex == "Р–РµРЅСЃРєРёР№":
+            # иероглифы, т.к. файл по какой-то причине выдает битые названия.
+            if sex == "Р–РµРЅСЃРєРёР№":  # Женский
                 if se not in girls:
                     girls[se] = 1
-            if sex == "РњСѓР¶СЃРєРѕР№":
+            if sex == "РњСѓР¶СЃРєРѕР№":  # Мужской
                 if se not in boys:
                     boys[se] = 1
         else:
