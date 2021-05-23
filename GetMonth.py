@@ -10,16 +10,32 @@ import matplotlib.pyplot as plt
 # Женский	17.05.1988
 # Женский	31.05.1997
 
+
 def GeneralNum(Datas):
     d = dict()
+    girls = dict()
+    boys = dict()
     for k in range(len(Datas)):
         ss = Datas[k, 1]
+        sex = str(Datas[k, 0])
         se = GetMonth(ss)
         if se not in d:
             d[se] = 1
+            if sex == "Р–РµРЅСЃРєРёР№":
+                if se not in girls:
+                    girls[se] = 1
+            if sex == "РњСѓР¶СЃРєРѕР№":
+                if se not in boys:
+                    boys[se] = 1
         else:
             d[se] += 1
-    return d
+            if sex == "Р–РµРЅСЃРєРёР№":
+                if se in girls:
+                    girls[se] += 1
+            if sex == "РњСѓР¶СЃРєРѕР№":
+                if se in boys:
+                    boys[se] += 1
+    return [d, girls, boys]
 
 
 def GetMonth(data):
@@ -32,6 +48,11 @@ with open('BirtthStud.csv', 'r') as MyData:
 Datas = np.array(DatReader[1:])
 print(len(Datas))
 
-dictionary = GeneralNum(Datas)
+dictionary, dictionary_girls, dictionary_boys = GeneralNum(Datas)
 plt.bar(list(dictionary.keys()), dictionary.values(), color='g')
 plt.show()
+plt.bar(list(dictionary_girls.keys()), dictionary_girls.values(), color='r')
+plt.show()
+plt.bar(list(dictionary_boys.keys()), dictionary_boys.values(), color='b')
+plt.show()
+# каждая гистограмма открывается при закрытии предыдущей
