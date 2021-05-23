@@ -11,15 +11,17 @@ import matplotlib.pyplot as plt
 # Женский	31.05.1997
 
 
+# Метод для перебора месяцев и записывания их в словари
 def GeneralNum(Datas):
-    d = dict()
-    girls = dict()
-    boys = dict()
-    for k in range(len(Datas)):
-        ss = Datas[k, 1]
-        sex = str(Datas[k, 0])
-        se = GetMonth(ss)
-        if se not in d:
+    d = dict() # общий словарь
+    girls = dict() # словарь с девочками
+    boys = dict() # словарь с мальчиками
+    for k in range(len(Datas)): # Перебор месяцев
+        ss = Datas[k, 1] # берем дату рождения
+        sex = str(Datas[k, 0]) # берем пол
+        se = GetMonth(ss) # определяем месяц
+        # проверяем если месяц есть в словаре, то прибавляем к месяцу 1, если нет, то добовляем месяц, записывая в его 1
+        if se not in d: 
             d[se] = 1
             # иероглифы, т.к. файл по какой-то причине выдает битые названия.
             if sex == "Р–РµРЅСЃРєРёР№":  # Женский
@@ -36,19 +38,20 @@ def GeneralNum(Datas):
             if sex == "РњСѓР¶СЃРєРѕР№":
                 if se in boys:
                     boys[se] += 1
-    return [d, girls, boys]
+    return [d, girls, boys] # возвращаем словари 
 
-
+# метод для определения месяца
 def GetMonth(data):
     k = data.split('.')
     return int(k[1])
 
 
+# читаем данные с csv
 with open('BirtthStud.csv', 'r') as MyData:
     DatReader = list(csv.reader(MyData, delimiter='\t'))
 Datas = np.array(DatReader[1:])
-print(len(Datas))
-
+print(len(Datas)) # кол-во строк
+# показываем все гистограммы
 dictionary, dictionary_girls, dictionary_boys = GeneralNum(Datas)
 plt.bar(list(dictionary.keys()), dictionary.values(), color='g')
 plt.show()
