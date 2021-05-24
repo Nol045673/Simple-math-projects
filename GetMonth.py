@@ -21,24 +21,24 @@ def GeneralNum(Datas):
         sex = str(Datas[k, 0]) # берем пол
         se = GetMonth(ss) # определяем месяц
         # проверяем если месяц есть в словаре, то прибавляем к месяцу 1, если нет, то добовляем месяц, записывая в его 1
-        if se not in d: 
+        if se not in d:
             d[se] = 1
             # иероглифы, т.к. файл по какой-то причине выдает битые названия.
-            if sex == "Р–РµРЅСЃРєРёР№":  # Женский
+            if sex == "Женский":
                 if se not in girls:
                     girls[se] = 1
-            if sex == "РњСѓР¶СЃРєРѕР№":  # Мужской
+            if sex == "Мужской":
                 if se not in boys:
                     boys[se] = 1
         else:
             d[se] += 1
-            if sex == "Р–РµРЅСЃРєРёР№":
+            if sex == "Женский":
                 if se in girls:
                     girls[se] += 1
-            if sex == "РњСѓР¶СЃРєРѕР№":
+            if sex == "Мужской":
                 if se in boys:
                     boys[se] += 1
-    return [d, girls, boys] # возвращаем словари 
+    return [d, girls, boys] # возвращаем словари
 
 # метод для определения месяца
 def GetMonth(data):
@@ -47,7 +47,7 @@ def GetMonth(data):
 
 
 # читаем данные с csv
-with open('BirtthStud.csv', 'r') as MyData:
+with open('BirtthStud.csv', 'r', encoding="utf-8") as MyData:
     DatReader = list(csv.reader(MyData, delimiter='\t'))
 Datas = np.array(DatReader[1:])
 print(len(Datas)) # кол-во строк
