@@ -24,12 +24,12 @@ for i in datas:
             flag = True
         x_arr.append(float(h.split()[1]))
         y_arr.append(float(h.split()[2]))
-x_arr_np = np.array(x_arr)
-y_arr_np = np.array(y_arr)
 
 
 # Через numpy:
 def function_numpy():
+    x_arr_np = np.array(x_arr)
+    y_arr_np = np.array(y_arr)
     t = np.linspace(-1, 1)
     func = np.polyfit(x_arr_np, y_arr_np, 2)
     korni = np.poly1d(func)
