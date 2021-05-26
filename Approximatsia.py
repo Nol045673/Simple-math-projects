@@ -1,5 +1,4 @@
 import csv
-import scipy as sp
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -39,15 +38,15 @@ def function_numpy():
     plt.show()
 
 
-# Обычный способ
+# С использованием уравнений
 def function_simple(x, y):
     d = 2  # степень полинома
-    fp, residuals, rank, sv, rcond = sp.polyfit(x, y, d, full=True)  # Модель
-    f = sp.poly1d(fp)  # аппроксимирующая функция
+    fp, residuals, rank, sv, rcond = np.polyfit(x, y, d, full=True)  # Модель
+    f = np.poly1d(fp)  # аппроксимирующая функция
     y1 = [fp[0] * x[i] ** 2 + fp[1] * x[i] + fp[2] for i in range(0, len(x))]  # значения функции a*x**2+b*x+c
     so = round(sum([abs(y[i] - y1[i]) for i in range(0, len(x))]) / (len(x) * sum(y)) * 100, 4)  # средняя ошибка
     print('Average quadratic deviation ' + str(so))
-    fx = sp.linspace(x[0], x[-1] + 1, len(x))  # можно установить вместо len(x) большее число для интерполяции
+    fx = np.linspace(x[0], x[-1] + 1, len(x))  # можно установить вместо len(x) большее число для интерполяции
     plt.plot(x, y, 'o', label='Original data', markersize=10)
     plt.plot(fx, f(fx), linewidth=2)
     plt.grid(True)
